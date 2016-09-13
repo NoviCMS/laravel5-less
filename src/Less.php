@@ -32,7 +32,12 @@ class Less {
 	public function compile($filename, $options = array()) {
 		$config = $this->prepareConfig($options);
 		$input_path = $config['less_path'] . DIRECTORY_SEPARATOR . $filename . '.less';
-		$output_path = $config['public_path'] . DIRECTORY_SEPARATOR . $filename . '.css';
+		if(empty($config['public_path'])){
+			$output_name = $filename;
+		}else{
+			$output_name = $config['public_filename'];
+		}
+		$output_path = $config['public_path'] . DIRECTORY_SEPARATOR . $output_name . '.css';
 		$css_dir_depth = $this->getDirDepth(public_path(), $output_path);
 		$parser = new \Less_Parser($config);
 		$parser->parseFile($input_path, str_repeat('{relative_path_fix}/', $css_dir_depth));

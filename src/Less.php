@@ -42,6 +42,10 @@ class Less {
 		}else{
 			$public_path = $config['public_path'];
 		}
+		if (!is_dir($public_path)) {
+		  // dir doesn't exist, make it
+		  mkdir($public_path, 0777, true);
+		}
 		$output_path = $public_path . DIRECTORY_SEPARATOR . $output_name . '.css';
 		$css_dir_depth = $this->getDirDepth(public_path(), $output_path);
 		$parser = new \Less_Parser($config);

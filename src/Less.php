@@ -37,7 +37,12 @@ class Less {
 		}else{
 			$output_name = $filename;
 		}
-		$output_path = $config['public_path'] . DIRECTORY_SEPARATOR . $output_name . '.css';
+		if(isset($options['public_path'])){
+			$public_path = $options['public_path'];
+		}else{
+			$public_path = $config['public_path'];
+		}
+		$output_path = $public_path . DIRECTORY_SEPARATOR . $output_name . '.css';
 		$css_dir_depth = $this->getDirDepth(public_path(), $output_path);
 		$parser = new \Less_Parser($config);
 		$parser->parseFile($input_path, str_repeat('{relative_path_fix}/', $css_dir_depth));
